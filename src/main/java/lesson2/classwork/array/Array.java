@@ -25,4 +25,11 @@ public interface Array<E> {
             add(value);
         }
     }
+
+    void sortBubble();
+
+    void sortSelect();
+
+    void sortInsert();
+
 }

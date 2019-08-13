@@ -1,13 +1,11 @@
 package lesson2.classwork.array;
 
-import org.omg.CORBA.Object;
-import java.util.Arrays;
-import java.util.Objects;
+import java.util.*;
 
-public class ArrayImpl<E> implements Array<E> {
+public class ArrayImpl<E extends Object & Comparable<? super E>> implements Array<E> {
 
-    private E[] data;
-    private int size;
+    protected E[] data;
+    protected int size;
 
     public ArrayImpl(){
         this(DEFAULT_CAPACITY);
@@ -24,7 +22,7 @@ public class ArrayImpl<E> implements Array<E> {
         data[size++] = value;
     }
 
-    private void checkGrow() {
+    protected void checkGrow() {
         if(size == data.length){
             data = Arrays.copyOf(data,size*2);
         }
@@ -90,6 +88,49 @@ public class ArrayImpl<E> implements Array<E> {
             System.out.println(data[i]);
         }
         System.out.println("____________");
+    }
+
+    @Override
+    public void sortBubble() {
+        for (int i = 0; i < size - 1; i++) {
+            for (int j = 0; j < size - 1 - i; j++) {
+                if (data[j].compareTo(data[j+1]) > 0) {
+                    swap(j, j+1);
+                }
+            }
+        }
+    }
+
+    private void swap(int index1, int index2) {
+        E temp = data[index1];
+        data[index1] = data[index2];
+        data[index2] = temp;
+    }
+
+    @Override
+    public void sortSelect() {
+        for (int i = 0; i < size - 1; i++) {
+            int minIndex = i;
+            for (int j = i+1; j < size; j++) {
+                if(data[j].compareTo(data[minIndex]) < 0){
+                    minIndex = j;
+                }
+            }
+            swap(minIndex, i);
+        }
+    }
+
+    @Override
+    public void sortInsert() {
+        for (int i = 1; i < size; i++) {
+            E temp = data[i];
+            int in = i;
+            while (in > 0 && data[in - 1].compareTo(temp) >= 0){
+                data[in] = data[in-1];
+                in--;
+            }
+            data[in] = temp;
+        }
     }
 
     @Override
