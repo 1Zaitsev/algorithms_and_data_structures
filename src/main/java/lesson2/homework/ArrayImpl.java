@@ -130,4 +130,10 @@ public class ArrayImpl<E extends Object & Comparable<? super E>> implements Arra
             data[in] = temp;
         }
     }
+
+    @Override
+    public E[] asArray(){
+        E[] result = Arrays.copyOf(data, size);
+        return result;
+    }
 }

@@ -22,4 +22,6 @@ public interface ArrayInterface<E> {
      void sortBubble();
      void sortSelect();
      void sortInsert();
+
+     E[] asArray();
 }
