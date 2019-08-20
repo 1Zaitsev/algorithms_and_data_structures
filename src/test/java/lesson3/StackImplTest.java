@@ -1,5 +1,7 @@
-package lesson3.homework;
+package lesson3;
 
+import lesson3.homework.Stack;
+import lesson3.homework.StackImpl;
 import org.junit.*;
 
 public class StackImplTest {

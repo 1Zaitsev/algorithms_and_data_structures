@@ -1,5 +1,7 @@
-package lesson3.homework;
+package lesson3;
 
+import lesson3.homework.Queue;
+import lesson3.homework.QueueImpl;
 import org.junit.*;
 
 public class QueueImplTest {

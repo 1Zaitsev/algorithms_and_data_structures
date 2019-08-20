@@ -1,10 +1,12 @@
-package lesson2.homework;
+package lesson2;
 
+import lesson2.homework.ArrayImpl;
+import lesson2.homework.ArrayInterface;
 import org.junit.*;
 
 public class ArrayImplTest {
 
-    ArrayInterface <Integer> array;
+    ArrayInterface<Integer> array;
 
     @Before
     public void init(){
