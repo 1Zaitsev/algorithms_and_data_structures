@@ -5,18 +5,22 @@ import java.util.Random;
 public class MainArray {
     public static void main(String[] args) {
 
-        int arrayLength = 1000000;
+        int arrayLength = 10000;
         Random random = new Random();
         ArrayInterface<Integer> array1 = new ArrayImpl<>(arrayLength);
+        ArrayInterface<Integer> array2 = new ArrayImpl<>(arrayLength);
+        ArrayInterface<Integer> array3 = new ArrayImpl<>(arrayLength);
 
         for (int i = 0; i < arrayLength; i++) {
-            array1.add(random.nextInt(arrayLength));
+            int item = random.nextInt(arrayLength);
+            array1.add(item);
+            array2.add(item);
+            array3.add(item);
         }
 
         array1.display();
-
-        ArrayInterface<Integer> array2 = array1;
-        ArrayInterface<Integer> array3 = array1;
+        array2.display();
+        array3.display();
 
         System.out.println("Bubble-sort time test ___________________________________________");
         long t = System.currentTimeMillis();
