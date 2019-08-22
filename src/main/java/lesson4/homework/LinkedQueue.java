@@ -2,11 +2,6 @@ package lesson4.homework;
 
 import lesson3.homework.Queue;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 public class LinkedQueue<E> implements Queue<E> {
 
     TwoSideLinkedList<E> data;
@@ -46,10 +41,15 @@ public class LinkedQueue<E> implements Queue<E> {
         return data.isFull();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public E[] asArray(){
-        return
+        E[] array =(E[]) new Object[data.size()];
+        int index = 0;
+        ListIterator<E> iterator = (ListIterator<E>) data.iterator();
+        while (iterator.hasNext()){
+            array[index++] = iterator.next();
         }
-
+        return array;
     }
 }

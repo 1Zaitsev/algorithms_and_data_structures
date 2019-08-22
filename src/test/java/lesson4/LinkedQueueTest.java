@@ -20,13 +20,13 @@ public class LinkedQueueTest {
     @Test
     public void insert() {
         linkedQueue.insert(5);
-        Assert.assertEquals("12345", linkedQueue.toString());
+        Assert.assertArrayEquals(new Integer[]{1, 2, 3, 4, 5}, linkedQueue.asArray());
     }
 
     @Test
     public void remove() {
         Assert.assertEquals(new Integer(1), linkedQueue.remove());
-        Assert.assertArrayEquals(new Integer[]{1, 2, 3}, linkedQueue.asArray());
+        Assert.assertArrayEquals(new Integer[]{2, 3, 4}, linkedQueue.asArray());
     }
 
     @Test

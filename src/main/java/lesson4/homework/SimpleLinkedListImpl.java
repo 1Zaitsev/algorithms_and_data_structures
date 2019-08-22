@@ -1,9 +1,8 @@
 package lesson4.homework;
 
 import java.util.Iterator;
-import java.util.function.Consumer;
 
-public class SimpleLinkedListImpl<E> implements SimpleLinkedList<E>, Iterable<E>{
+public class SimpleLinkedListImpl<E> implements SimpleLinkedList<E>{
 
     public Node<E> firstElement;
     public int size;
@@ -76,11 +75,19 @@ public class SimpleLinkedListImpl<E> implements SimpleLinkedList<E>, Iterable<E>
         Node<E> current = firstElement;
         System.out.println("__________________");
         while (current != null) {
-            System.out.println(current.value + " ");
+            System.out.print(current.value + " ");
             current = current.next;
         }
         System.out.println();
         System.out.println("__________________");
+    }
+
+    public void dispayAll(SimpleLinkedList<E> linkedList){
+        System.out.println("_____________________________________");
+        for(E value: linkedList){
+            System.out.print(value + " ");
+        }
+        System.out.println("/n_______________________________________");
     }
 
     @Override
@@ -99,25 +106,61 @@ public class SimpleLinkedListImpl<E> implements SimpleLinkedList<E>, Iterable<E>
         };
     }
 
-    class MyIterator<E> implements Iterator<E> {
-        private SimpleLinkedList<E> linkedList;
-        Node<E> current;
+    private static class MyIterator<E> implements ListIterator<E> {
+        private SimpleLinkedListImpl linkedList;
+        Node current;
         Node<E> previous;
 
-            public MyIterator(SimpleLinkedList<E> linkedList){
+            public MyIterator(SimpleLinkedListImpl linkedList){
                 this.linkedList = linkedList;
-                current = (Node<E>) firstElement;
-                Node<E> previous = null;
+                reset();
             }
 
         @Override
         public boolean hasNext() {
-            return current.next != null;
+            return current != null;
         }
 
         @Override
         public E next() {
-            return null;
+                E nextValue = (E) current.value;
+                previous = current;
+                current = current.next;
+            return nextValue;
+        }
+
+        @Override
+        public void reset() {
+            current = linkedList.firstElement;
+            previous = null;
+        }
+
+        @Override
+        public void insertBefore(E value) {
+            Node newItem = new Node(value);
+            if(previous == null) {
+                newItem.next = linkedList.firstElement;
+                linkedList.firstElement = newItem;
+                reset();
+            }else{
+                newItem.next = previous.next;
+                previous.next = newItem;
+                current = newItem;
+            }
+        }
+
+        @Override
+        public void insertAfter(E value) {
+                Node newItem = new Node(value);
+                if(linkedList.isEmpty()){
+                    linkedList.firstElement = newItem;
+                    current = newItem;
+                }else{
+                    newItem.next = current.next;
+                    current.next = newItem;
+                    next();
+                }
         }
     }
+
 }

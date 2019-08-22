@@ -2,7 +2,7 @@ package lesson4.homework;
 
 import lesson3.classwork.ICollection;
 
-public interface SimpleLinkedList<E> extends ICollection {
+public interface SimpleLinkedList<E> extends ICollection, Iterable<E> {
 
     void insertFirst(E value);
 
