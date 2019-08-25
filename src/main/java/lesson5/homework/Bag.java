@@ -13,8 +13,39 @@ public class Bag {
         this.weightLimit = weightLimit;
     }
 
-    public int getWeightLimit() {
-        return weightLimit;
+    private  int totalWeight(List<Stuff> stuffs) {
+        int result = 0;
+        for (Stuff stuff : stuffs) {
+            result += stuff.getWeight();
+        }
+        return result;
+    }
+
+    private int totalPrice(List<Stuff> stuffs) {
+        int result = 0;
+        for (Stuff stuff : stuffs) {
+            result += stuff.getPrice();
+        }
+        return result;
+    }
+
+    private void variations(List<Stuff> stuffs) {
+        if (totalWeight(stuffs) <= weightLimit && totalPrice(stuffs) > topPrice) {
+            topPricedBag = stuffs;
+            topPrice = totalPrice(stuffs);
+        }
+    }
+
+    public void findTopPricedBag(List<Stuff> stuffs) {
+        if (stuffs.size() > 0) {
+            variations(stuffs);
+        }
+
+        for (int i = 0; i < stuffs.size(); i++) {
+            List<Stuff> temp = new ArrayList<>(stuffs);
+            temp.remove(i);
+            findTopPricedBag(temp);
+        }
     }
 
     public List<Stuff> getTopPricedBag() {
@@ -23,48 +54,5 @@ public class Bag {
 
     public int getTopPrice() {
         return topPrice;
-    }
-
-    private int totalPrice(List<Stuff> stuff){
-        int result = 0;
-        for (Stuff o : stuff) {
-            result += o.getWeight();
-        }
-        return result;
-    }
-
-    private int totalWeight(List<Stuff> stuff){
-        int result = 0;
-        for (Stuff o : stuff) {
-            result += o.getPrise();
-        }
-        return result;
-    }
-
-    public void variations (List<Stuff> stuff){
-        if(topPricedBag == null){
-            if(totalWeight(stuff) <= weightLimit){
-                topPricedBag = stuff;
-                topPrice = totalPrice(topPricedBag);
-            }
-        }
-        else {
-            if((totalWeight(stuff) <= weightLimit) && (totalPrice(stuff) > topPrice)){
-                topPricedBag = stuff;
-                topPrice = totalPrice(topPricedBag);
-            }
-        }
-    }
-
-    public void findTopPriseVariation(List<Stuff> stuff){
-        if(stuff.size() > 0){
-            variations(stuff);
-        }
-
-        for(int i = 0; i < stuff.size(); i++){
-            List<Stuff> temp = new ArrayList<>(stuff);
-            temp.remove(i);
-            findTopPriseVariation(temp);
-        }
     }
 }
