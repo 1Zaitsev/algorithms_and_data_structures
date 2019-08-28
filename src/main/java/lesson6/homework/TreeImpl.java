@@ -142,10 +142,6 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
 
     }
 
-    @Override
-    public boolean isBalanced() {
-        return false;
-    }
 
     @Override
     public void display() {
@@ -271,4 +267,27 @@ public class TreeImpl<E extends Comparable<? super E>> implements Tree<E> {
             this.parent = parent;
         }
     }
+
+    @Override
+    public boolean isBalanced() {
+        return firstBalanceIndicator(root)
+        && secondBalanceIndicator();
+    }
+
+
+    private boolean firstBalanceIndicator(Node node) {              // Перове условие баланса (пояснение к ДЗ): длина до любого листа одинаковая или отличатеся на 1.
+        return (node == null) ||
+                firstBalanceIndicator(node.getLeftChild()) &&
+                        firstBalanceIndicator(node.getRightChild()) &&
+                        Math.abs(height(node.getLeftChild()) - height(node.getRightChild())) <= 1;
+    }
+
+    private static int height(Node node) {
+        return node == null ? 0 : 1 + Math.max(height(node.getLeftChild()), height(node.getRightChild()));
+    }
+
+    private boolean secondBalanceIndicator() {                  //Второе условие баланса (пояснения к ДЗ): расстояние до самого дальнего листа меньше натурального логорифма от кол-ва всех элементов.
+        return Math.log(this.size) <= this.level;
+    }
+
 }
