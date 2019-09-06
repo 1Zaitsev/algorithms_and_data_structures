@@ -89,6 +89,47 @@ public class Graph {
         resetVertexState();
     }
 
+    public void findShortestPath(String startLabel, String finishLabel){
+        int startIndex = indexOf(startLabel);
+        int finishIndex = indexOf(finishLabel);
+
+        if(startIndex == -1)
+            throw new IllegalArgumentException("Invalid startLabel: " + startLabel);
+        if(finishIndex == -1)
+            throw new IllegalArgumentException("Invalid finishLabel: " + finishLabel);
+
+        Queue<Vertex> queue = new ArrayDeque<>();
+        Vertex vertex = vertexList.get(startIndex);
+        visitVertex(queue, vertex);
+
+        while (!queue.isEmpty()){
+            vertex = getNearUnvisitedVertex(queue.peek());
+            if(vertex == null) {
+                queue.remove();
+            }
+            else{
+                visitVertex(queue,vertex);
+                vertex.setPrevious(queue.peek());
+                if(vertex.getLabel().equals(finishLabel)){
+                    Stack <String> path = new Stack<>();
+                    StringBuffer pathToString = new StringBuffer();
+                    while(vertex!=null){
+                        path.push(vertex.getLabel());
+                        vertex = vertex.getPrevious();
+                    }
+                    while (!path.isEmpty()){
+                        pathToString.append(path.pop() + " ");
+                    }
+
+                    System.out.println(pathToString);
+
+                }
+            }
+        }
+
+        resetVertexState();
+    }
+
     private void resetVertexState() {
         for (Vertex vertex: vertexList) {
             vertex.setVisited(false);
@@ -98,7 +139,7 @@ public class Graph {
 
 
     private void visitVertex(Queue<Vertex> queue, Vertex vertex) {
-        System.out.println(vertex.getLabel());
+//        System.out.println(vertex.getLabel());
         queue.add(vertex);
         vertex.setVisited(true);
     }
