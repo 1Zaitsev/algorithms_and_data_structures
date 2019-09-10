@@ -112,7 +112,7 @@ public class Graph {
                 vertex.setPrevious(queue.peek());
                 if(vertex.getLabel().equals(finishLabel)){
                     Stack <String> path = new Stack<>();
-                    StringBuffer pathToString = new StringBuffer();
+                    StringBuilder pathToString = new StringBuilder();
                     while(vertex!=null){
                         path.push(vertex.getLabel());
                         vertex = vertex.getPrevious();
