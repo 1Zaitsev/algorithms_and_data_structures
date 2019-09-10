@@ -38,6 +38,8 @@ public class HomeWork8 {
 
         System.out.println("Orange costs " + hTChain.get(orange));
 
+//        hTChain.remove(orange);
+
         hTChain.display();
     }
 }

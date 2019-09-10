@@ -93,7 +93,7 @@ public class HashTableChainImpl<K, V> implements HashTable<K, V> {
         for (Node node: currentList) {
             if (node.getKey().equals(key)) {
                 Node<K, V> result = node;
-                node = null;
+                currentList.remove(node);
                 size--;
                 return result.getValue();
             }
